@@ -4,7 +4,9 @@
   "description": "alexa utility for quickly building skills",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack --config webpack.config.js",
+    "pjson": "ts-node ./tools/gen-package-json.ts > ./lambda/custom/package.json",
+    "clean": "rm -rf ./lambda/*"
   },
   "author": "Amazon Alexa",
   "license": "Apache License",
