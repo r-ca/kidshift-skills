@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --config webpack.config.ts",
-    "pjson": "ts-node ./src/tools/gen-package-json.ts > ./lambda/custom/package.json",
-    "clean": "rm -rf ./lambda/custom/*"
+    "pjson": "ts-node ./src/tools/gen-package-json.ts > ./lambda/package.json",
+    "clean": "rm -rf ./lambda/*"
   },
   "author": "Amazon Alexa",
   "license": "Apache License",
