@@ -21,7 +21,7 @@ const config: webpack.Configuration = {
   },
   output: {
     filename: 'index.js',
-    path: path.resolve(__dirname, 'lambda/custom'),
+    path: path.resolve(__dirname, 'lambda'),
     library: 'index',
     libraryTarget: 'commonjs2',
   },
