@@ -21,25 +21,34 @@ const HelloWorldIntentHandler = {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'HelloWorldIntent';
     },
-    async handle(handlerInput: Alexa.HandlerInput) {
+    // async handle(handlerInput: Alexa.HandlerInput) {
+    //
+    //     const attributesManager = handlerInput.attributesManager;
+    //
+    //     const attributes = await attributesManager.getPersistentAttributes();
+    //
+    //     if (attributes.counter === undefined) {
+    //         attributes.counter = 0;
+    //     } else {
+    //         attributes.counter += 1;
+    //     }
+    //
+    //     attributesManager.setPersistentAttributes(attributes);
+    //
+    //     const speakOutput = 'Hello World! You have invoked this skill ' + attributes.counter + ' times.';
+    //
+    //     return handlerInput.responseBuilder
+    //         .speak(speakOutput)
+    //         //.reprompt('add a reprompt if you want to keep the session open for the user to respond')
+    //         .getResponse();
+    // }
 
-        const attributesManager = handlerInput.attributesManager;
-
-        const attributes = await attributesManager.getPersistentAttributes();
-
-        if (attributes.counter === undefined) {
-            attributes.counter = 0;
-        } else {
-            attributes.counter += 1;
-        }
-
-        attributesManager.setPersistentAttributes(attributes);
-
-        const speakOutput = 'Hello World! You have invoked this skill ' + attributes.counter + ' times.';
-
+    handle(handlerInput: Alexa.HandlerInput) {
+        
+        const message = 'Hello World!';
+        
         return handlerInput.responseBuilder
-            .speak(speakOutput)
-            //.reprompt('add a reprompt if you want to keep the session open for the user to respond')
+            .speak(message)
             .getResponse();
     }
 };
