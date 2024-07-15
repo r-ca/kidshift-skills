@@ -21,21 +21,8 @@ const HelloWorldIntentHandler = {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'HelloWorldIntent';
     },
-    async handle(handlerInput: Alexa.HandlerInput) {
-
-        const attributesManager = handlerInput.attributesManager;
-
-        const attributes = await attributesManager.getPersistentAttributes();
-
-        if (attributes.counter === undefined) {
-            attributes.counter = 0;
-        } else {
-            attributes.counter += 1;
-        }
-
-        attributesManager.setPersistentAttributes(attributes);
-
-        const speakOutput = 'Hello World! You have invoked this skill ' + attributes.counter + ' times.';
+    handle(handlerInput: Alexa.HandlerInput) {
+        const speakOutput = 'Hello World!';
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
