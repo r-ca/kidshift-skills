@@ -1,6 +1,4 @@
 import Alexa from 'ask-sdk-core';
-import AWS from 'aws-sdk';
-import { DynamoDbPersistenceAdapter } from 'ask-sdk-dynamodb-persistence-adapter';
 
 const LaunchRequestHandler = {
     canHandle(handlerInput: Alexa.HandlerInput) {
@@ -21,34 +19,12 @@ const HelloWorldIntentHandler = {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'HelloWorldIntent';
     },
-    // async handle(handlerInput: Alexa.HandlerInput) {
-    //
-    //     const attributesManager = handlerInput.attributesManager;
-    //
-    //     const attributes = await attributesManager.getPersistentAttributes();
-    //
-    //     if (attributes.counter === undefined) {
-    //         attributes.counter = 0;
-    //     } else {
-    //         attributes.counter += 1;
-    //     }
-    //
-    //     attributesManager.setPersistentAttributes(attributes);
-    //
-    //     const speakOutput = 'Hello World! You have invoked this skill ' + attributes.counter + ' times.';
-    //
-    //     return handlerInput.responseBuilder
-    //         .speak(speakOutput)
-    //         //.reprompt('add a reprompt if you want to keep the session open for the user to respond')
-    //         .getResponse();
-    // }
-
     handle(handlerInput: Alexa.HandlerInput) {
-        
-        const message = 'Hello World!';
-        
+        const speakOutput = 'Hello World!';
+
         return handlerInput.responseBuilder
-            .speak(message)
+            .speak(speakOutput)
+            //.reprompt('add a reprompt if you want to keep the session open for the user to respond')
             .getResponse();
     }
 };
@@ -171,12 +147,5 @@ exports.handler = Alexa.SkillBuilders.custom()
         IntentReflectorHandler)
     .addErrorHandlers(
         ErrorHandler)
-    .withPersistenceAdapter(
-        new DynamoDbPersistenceAdapter({
-            tableName: process.env.DYNAMODB_PERSISTENCE_TABLE_NAME || 'kidshift-table',
-            createTable: false,
-            dynamoDBClient: new AWS.DynamoDB({ apiVersion: 'latest', region: process.env.DYNAMODB_PERSISTENCE_REGION })
-        })
-    )
     .withCustomUserAgent('sample/hello-world/v1.2')
     .lambda();

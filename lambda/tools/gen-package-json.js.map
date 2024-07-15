@@ -1,0 +1,1 @@
+{"version":3,"file":"gen-package-json.js","sourceRoot":"","sources":["../../src/tools/gen-package-json.ts"],"names":[],"mappings":";;AAAA,iCAOe;AACf,MAAM,WAAW,GAAG;IAChB,IAAI,EAAJ,YAAI;IACJ,WAAW,EAAX,mBAAW;IACX,OAAO,EAAP,eAAO;IACP,IAAI,EAAJ,YAAI;IACJ,OAAO,EAAP,eAAO;IACP,YAAY,EAAZ,oBAAY;CACf,CAAC;AACF,OAAO,CAAC,GAAG,CAAC,IAAI,CAAC,SAAS,CAAC,WAAW,CAAC,CAAC,CAAC"}
