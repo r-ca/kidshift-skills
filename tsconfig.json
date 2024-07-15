@@ -1,9 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2017",
-    "lib": [
-      "es2017"
-    ],
+    "lib": ["es2017"],
     "outDir": "./lambda",
     "module": "commonjs",
     "moduleResolution": "node",
@@ -11,10 +9,9 @@
     "esModuleInterop": true,
     "removeComments": true,
     "preserveConstEnums": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "skipLibCheck": true
   },
-    "include": ["src/**/*.ts", "src/*.ts"],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
 }
