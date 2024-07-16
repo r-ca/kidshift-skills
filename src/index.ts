@@ -53,6 +53,9 @@ const KidShiftAuthIntentHandler = {
         const dialogState = Alexa.getDialogState(handlerInput.requestEnvelope);
 
         // dialogStateがCOMPLETEDでない場合は、処理を続行
+        
+        console.log("Dialog state is " + dialogState);
+
         if (dialogState !== 'COMPLETED') {
             return handlerInput.responseBuilder
                 .addDelegateDirective()
@@ -60,7 +63,9 @@ const KidShiftAuthIntentHandler = {
         }
 
         // LOGIN_CODEスロットの値を取得
-        const loginCode = Alexa.getSlotValue(handlerInput.requestEnvelope, "loginCode");
+        const loginCode = Alexa.getSlotValue(handlerInput.requestEnvelope, 'loginCode');
+
+        console.log("Login code is " + loginCode);
 
         if (!loginCode) {
             return handlerInput.responseBuilder
