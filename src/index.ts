@@ -38,6 +38,7 @@ const KidShiftAuthIntentHandler = {
     handle(handlerInput: Alexa.HandlerInput) {
         return handlerInput.responseBuilder
             .speak('DEBUG: your auth code is ' + Alexa.getSlotValue(handlerInput.requestEnvelope, 'loginCode'))
+            .reprompt('DEBUG: your auth code is ' + Alexa.getSlotValue(handlerInput.requestEnvelope, 'loginCode'))
             .getResponse();
     }
 };
