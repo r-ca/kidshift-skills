@@ -49,25 +49,28 @@ const KidShiftAuthIntentHandler = {
     },
     handle(handlerInput: Alexa.HandlerInput) {
 
-
-        if (!Alexa.getSlotValue(handlerInput.requestEnvelope, 'loginCode')) {
-            return handlerInput.responseBuilder
-            .speak("Login code is not provided")
-            .getResponse();
-        }
-
-        const loginCode = Alexa.getSlotValue(handlerInput.requestEnvelope, 'loginCode');
-
-        if (!loginCode) {
-            return handlerInput.responseBuilder
-            .speak("Login code is not provided")
-            .getResponse();
-        }
-
-        const speakOutput = "Slot value is " + loginCode;
+        // if (!Alexa.getSlotValue(handlerInput.requestEnvelope, 'loginCode')) {
+        //     return handlerInput.responseBuilder
+        //     .speak("Login code is not provided")
+        //     .getResponse();
+        // }
+        //
+        // const loginCode = Alexa.getSlotValue(handlerInput.requestEnvelope, 'loginCode');
+        //
+        // if (!loginCode) {
+        //     return handlerInput.responseBuilder
+        //     .speak("Login code is not provided")
+        //     .getResponse();
+        // }
+        //
+        // const speakOutput = "Slot value is " + loginCode;
+        //
+        // return handlerInput.responseBuilder
+        //     .speak(speakOutput)
+        //     .getResponse();
 
         return handlerInput.responseBuilder
-            .speak(speakOutput)
+            .speak("Deployed successfully!")
             .getResponse();
     }
 };
