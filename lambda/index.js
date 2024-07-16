@@ -54,7 +54,7 @@ const HelloWorldIntentHandler = {
         }
         attributesManager.setPersistentAttributes(attributes);
         await attributesManager.savePersistentAttributes();
-        const speakOutput = "HelloWorldぷれーすほーるだー";
+        const speakOutput = "HelloWorld! You've invoked me " + attributes.counter + " times";
         return handlerInput.responseBuilder
             .speak(speakOutput)
             .getResponse();
