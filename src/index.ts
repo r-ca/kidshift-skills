@@ -23,26 +23,16 @@ const HelloWorldIntentHandler = {
     },
     async handle(handlerInput: Alexa.HandlerInput) {
 
-        // const attributesManager = handlerInput.attributesManager;
-        // const attributes = await attributesManager.getPersistentAttributes();
-        // if (!attributes.counter) {
-        //     attributes.counter = 0;
-        // } else {
-        //     attributes.counter += 1;
-        // }
-
-
         const attributesManager = handlerInput.attributesManager;
-        let attributes = { "counter": 10 };
+        const attributes = await attributesManager.getPersistentAttributes();
+        if (!attributes.counter) {
+            attributes.counter = 0;
+        } else {
+            attributes.counter += 1;
+        }
 
         attributesManager.setPersistentAttributes(attributes);
         await attributesManager.savePersistentAttributes();
-
-        // attributesManager.setPersistentAttributes(attributes);
-        //
-        // await attributesManager.savePersistentAttributes();
-        //
-        // const speakOutput = `Hello World! You've visited this skill ${attributes.counter} times.`;
 
         const speakOutput = "HelloWorldぷれーすほーるだー";
 
