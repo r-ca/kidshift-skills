@@ -43,19 +43,19 @@ const HelloWorldIntentHandler = {
     }
 };
 
-const KidShiftAuthIntentHandler = {
-    canHandle(handlerInput: Alexa.HandlerInput) {
-        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'KidShiftAuthIntentHandler';
-    },
-    handle(handlerInput: Alexa.HandlerInput) {
-        // TODO: impl
-        const speakOutput = 'AuthHandler placeholder message';
-
-        return handlerInput.responseBuilder
-            .speak(speakOutput)
-            .getResponse();
-    }
-};
+// const KidShiftAuthIntentHandler = {
+//     canHandle(handlerInput: Alexa.HandlerInput) {
+//         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'KidShiftAuthIntentHandler';
+//     },
+//     handle(handlerInput: Alexa.HandlerInput) {
+//         // TODO: impl
+//         const speakOutput = 'AuthHandler placeholder message';
+//
+//         return handlerInput.responseBuilder
+//             .speak(speakOutput)
+//             .getResponse();
+//     }
+// };
 
 const HelpIntentHandler = {
     canHandle(handlerInput: Alexa.HandlerInput) {
