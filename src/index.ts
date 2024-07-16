@@ -1,4 +1,6 @@
 import * as Alexa from 'ask-sdk-core';
+import * as AWS from 'aws-sdk';
+import * as DynamoDBPersistantAttributesAdapter from 'ask-sdk-dynamodb-persistence-adapter';
 
 const LaunchRequestHandler = {
     canHandle(handlerInput: Alexa.HandlerInput) {
