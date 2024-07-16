@@ -16,3 +16,9 @@ interface TaskResponse extends TaskBaseItem {
 interface TaskListResponse {
     list: TaskBaseItem[]
 }
+
+export {
+    TaskBaseItem,
+    TaskResponse,
+    TaskListResponse
+}
