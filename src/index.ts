@@ -44,34 +44,15 @@ const HelloWorldIntentHandler = {
 
 const KidShiftAuthIntentHandler = {
     canHandle(handlerInput: Alexa.HandlerInput) {
-        // return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest' 
-        //     && Alexa.getIntentName(handlerInput.requestEnvelope) === 'KidShiftAuthIntent';
-        return Alexa.getIntentName(handlerInput.requestEnvelope) === 'KidShiftAuthIntent';
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest' 
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'KidShiftAuthIntent';
     },
     handle(handlerInput: Alexa.HandlerInput) {
-
-        // if (!Alexa.getSlotValue(handlerInput.requestEnvelope, 'loginCode')) {
-        //     return handlerInput.responseBuilder
-        //     .speak("Login code is not provided")
-        //     .getResponse();
-        // }
-        //
-        // const loginCode = Alexa.getSlotValue(handlerInput.requestEnvelope, 'loginCode');
-        //
-        // if (!loginCode) {
-        //     return handlerInput.responseBuilder
-        //     .speak("Login code is not provided")
-        //     .getResponse();
-        // }
-        //
-        // const speakOutput = "Slot value is " + loginCode;
-        //
-        // return handlerInput.responseBuilder
-        //     .speak(speakOutput)
-        //     .getResponse();
-
+        const loginCode = Alexa.getSlot(handlerInput.requestEnvelope, 'loginCode');
+        const speakOutput = `You entered the code ${loginCode.value}.`;
         return handlerInput.responseBuilder
-            .speak("Deployed successfully!")
+            .speak(speakOutput)
+            .withShouldEndSession(true)
             .getResponse();
     }
 };
