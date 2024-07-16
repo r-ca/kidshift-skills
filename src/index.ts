@@ -45,12 +45,12 @@ const KidShiftAuthIntentHandler = {
             handlerInput.attributesManager.setPersistentAttributes(tokenResponse);
             await handlerInput.attributesManager.savePersistentAttributes();
             return handlerInput.responseBuilder
-            .speak('Login successful')
-            .getResponse();
+                .speak('Login successful')
+                .getResponse();
         } else {
             return handlerInput.responseBuilder
-            .speak('Login failed')
-            .getResponse();
+                .speak('Login failed')
+                .getResponse();
         }
     }
 };
