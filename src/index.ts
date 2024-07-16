@@ -36,9 +36,12 @@ const KidShiftAuthIntentHandler = {
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'KidShiftAuthIntent';
     },
     async handle(handlerInput: Alexa.HandlerInput) {
-        const speakOutput = 'Hello World!2';
+        const loginCode = Alexa.getSlotValue(handlerInput.requestEnvelope, 'loginCode');
+
+        const message = 'Slot value is ' + loginCode;
+
         return handlerInput.responseBuilder
-            .speak(speakOutput)
+            .speak(message)
             .getResponse();
     }
 };
