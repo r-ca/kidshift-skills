@@ -62,7 +62,8 @@ const HelloWorldIntentHandler = {
 };
 const KidShiftAuthIntentHandler = {
     canHandle(handlerInput) {
-        return Alexa.getRequestType(handlerInput.requestEnvelope) === ("KidShiftAuthIntent" || "IntentRequest");
+        return (Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest')
+            || (Alexa.getRequestType(handlerInput.requestEnvelope) === 'KidShiftAuthIntent');
     },
     handle(handlerInput) {
         const dialogState = Alexa.getDialogState(handlerInput.requestEnvelope);
@@ -71,7 +72,12 @@ const KidShiftAuthIntentHandler = {
                 .addDelegateDirective()
                 .getResponse();
         }
-        const loginCode = Alexa.getSlotValue(handlerInput.requestEnvelope, "LOGIN_CODE");
+        const loginCode = Alexa.getSlotValue(handlerInput.requestEnvelope, "loginCode");
+        if (!loginCode) {
+            return handlerInput.responseBuilder
+                .addElicitSlotDirective("loginCode")
+                .getResponse();
+        }
         const speakOutput = "Slot value is " + loginCode;
         return handlerInput.responseBuilder
             .speak(speakOutput)
