@@ -44,7 +44,8 @@ const HelloWorldIntentHandler = {
 
 const KidShiftAuthIntentHandler = {
     canHandle(handlerInput: Alexa.HandlerInput) {
-        return Alexa.getRequestType(handlerInput.requestEnvelope) === ("KidShiftAuthIntent" || "IntentRequest")
+        return (Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest') 
+            || (Alexa.getRequestType(handlerInput.requestEnvelope) === 'KidShiftAuthIntent');
     },
     handle(handlerInput: Alexa.HandlerInput) {
 
@@ -59,7 +60,13 @@ const KidShiftAuthIntentHandler = {
         } 
 
         // LOGIN_CODEスロットの値を取得
-        const loginCode = Alexa.getSlotValue(handlerInput.requestEnvelope, "LOGIN_CODE");
+        const loginCode = Alexa.getSlotValue(handlerInput.requestEnvelope, "loginCode");
+
+        if (!loginCode) {
+            return handlerInput.responseBuilder
+                .addElicitSlotDirective("loginCode")
+                .getResponse();
+        }
 
         const speakOutput = "Slot value is " + loginCode;
 
