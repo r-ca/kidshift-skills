@@ -22,10 +22,14 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const Alexa = __importStar(require("ask-sdk-core"));
 const AWS = __importStar(require("aws-sdk"));
 const DynamoDBPersistantAttributesAdapter = __importStar(require("ask-sdk-dynamodb-persistence-adapter"));
+const MetaService_1 = __importDefault(require("./service/MetaService"));
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
@@ -61,6 +65,23 @@ const KidShiftAuthIntentHandler = {
         return handlerInput.responseBuilder
             .speak(message)
             .getResponse();
+    }
+};
+const KidShiftMetaIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'KidShiftmetaIntent';
+    },
+    async handle(handlerInput) {
+        return MetaService_1.default.getMeta().then((resp) => {
+            return handlerInput.responseBuilder
+                .speak(resp)
+                .getResponse();
+        }).catch((err) => {
+            return handlerInput.responseBuilder
+                .speak('Error occured')
+                .getResponse();
+        });
     }
 };
 const HelpIntentHandler = {
