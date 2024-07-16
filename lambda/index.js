@@ -62,7 +62,7 @@ const HelloWorldIntentHandler = {
 };
 const KidShiftAuthIntentHandler = {
     canHandle(handlerInput) {
-        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'KidShiftAuthIntentHandler';
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'KidShiftAuthIntent';
     },
     handle(handlerInput) {
         const speakOutput = 'AuthHandler placeholder message';
