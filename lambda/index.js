@@ -30,6 +30,7 @@ const Alexa = __importStar(require("ask-sdk-core"));
 const AWS = __importStar(require("aws-sdk"));
 const DynamoDBPersistantAttributesAdapter = __importStar(require("ask-sdk-dynamodb-persistence-adapter"));
 const MetaService_1 = __importDefault(require("./service/MetaService"));
+const AuthService_1 = __importDefault(require("./service/AuthService"));
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
@@ -61,10 +62,19 @@ const KidShiftAuthIntentHandler = {
     },
     async handle(handlerInput) {
         const loginCode = Alexa.getSlotValue(handlerInput.requestEnvelope, 'loginCode');
-        const message = 'Slot value is ' + loginCode;
-        return handlerInput.responseBuilder
-            .speak(message)
-            .getResponse();
+        const tokenResponse = await AuthService_1.default.login(loginCode);
+        if (tokenResponse) {
+            handlerInput.attributesManager.setPersistentAttributes(tokenResponse);
+            await handlerInput.attributesManager.savePersistentAttributes();
+            return handlerInput.responseBuilder
+                .speak('Login successful')
+                .getResponse();
+        }
+        else {
+            return handlerInput.responseBuilder
+                .speak('Login failed')
+                .getResponse();
+        }
     }
 };
 const KidShiftMetaIntentHandler = {
