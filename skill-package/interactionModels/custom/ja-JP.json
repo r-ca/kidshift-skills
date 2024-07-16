@@ -26,6 +26,21 @@
             "say hello world",
             "say hello"
           ]
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "slots": [],
+          "name": "KidShiftAuthIntent",
+          "samples": [
+            "login",
+            "認証",
+            "ログイン",
+            "ログインして",
+            "認証して"
+          ]
         }
       ],
       "types": [],
