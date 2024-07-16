@@ -75,7 +75,7 @@ const KidShiftMetaIntentHandler = {
     async handle(handlerInput) {
         return MetaService_1.default.getMeta().then((resp) => {
             return handlerInput.responseBuilder
-                .speak(resp)
+                .speak(JSON.stringify(resp))
                 .getResponse();
         }).catch((err) => {
             return handlerInput.responseBuilder
