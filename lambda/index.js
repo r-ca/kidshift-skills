@@ -66,12 +66,17 @@ const KidShiftAuthIntentHandler = {
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'KidShiftAuthIntent';
     },
     handle(handlerInput) {
-        const loginCode = Alexa.getSlot(handlerInput.requestEnvelope, 'loginCode');
-        const speakOutput = `You entered the code ${loginCode.value}.`;
-        return handlerInput.responseBuilder
-            .speak(speakOutput)
-            .withShouldEndSession(true)
-            .getResponse();
+        const dialogState = Alexa.getDialogState(handlerInput.requestEnvelope);
+        if (dialogState !== 'COMPLETED') {
+            return handlerInput.responseBuilder
+                .speak('Not provided')
+                .getResponse();
+        }
+        else {
+            return handlerInput.responseBuilder
+                .speak('Provided')
+                .getResponse();
+        }
     }
 };
 const HelpIntentHandler = {
