@@ -29,3 +29,10 @@ interface EndpointItem {
     request?: any,
     requireAuth?: boolean,
 }
+
+export {
+    Configs,
+    Endpoints,
+    Method,
+    EndpointItem,
+}
