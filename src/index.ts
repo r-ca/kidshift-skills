@@ -20,27 +20,10 @@ const LaunchRequestHandler = {
 const HelloWorldIntentHandler = {
     canHandle(handlerInput: Alexa.HandlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
-            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'HelloWorldIntent'
-            && Alexa.getDialogState(handlerInput.requestEnvelope) === 'COMPLETED';
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'HelloWorldIntent';
     },
     async handle(handlerInput: Alexa.HandlerInput) {
 
-        const attributesManager = handlerInput.attributesManager;
-        const attributes = await attributesManager.getPersistentAttributes();
-        if (!attributes.counter) {
-            attributes.counter = 0;
-        } else {
-            attributes.counter += 1;
-        }
-
-        attributesManager.setPersistentAttributes(attributes);
-        await attributesManager.savePersistentAttributes();
-
-        const speakOutput = "HelloWorld! You've invoked me " + attributes.counter + " times and dialog value is " + Alexa.getSlotValue(handlerInput.requestEnvelope, 'exampleSlot');
-
-        return handlerInput.responseBuilder
-            .speak(speakOutput)
-            .getResponse();
     }
 };
 
@@ -50,16 +33,9 @@ const KidShiftAuthIntentHandler = {
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'KidShiftAuthIntent';
     },
     handle(handlerInput: Alexa.HandlerInput) {
-        const dialogState: DialogState = Alexa.getDialogState(handlerInput.requestEnvelope);
-        if (dialogState !== 'COMPLETED') {
-            return handlerInput.responseBuilder
-                .speak('Not provided')
-                .getResponse();
-        } else {
-            return handlerInput.responseBuilder
-                .speak('Provided')
-                .getResponse();
-        }
+        return handlerInput.responseBuilder
+            .speak('引数なし呼び出し')
+            .getResponse();
     }
 };
 
