@@ -66,20 +66,8 @@ const KidShiftAuthIntentHandler = {
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'KidShiftAuthIntent';
     },
     handle(handlerInput) {
-        if (!Alexa.getSlotValue(handlerInput.requestEnvelope, 'loginCode')) {
-            return handlerInput.responseBuilder
-                .speak("Login code is not provided")
-                .getResponse();
-        }
-        const loginCode = Alexa.getSlotValue(handlerInput.requestEnvelope, 'loginCode');
-        if (!loginCode) {
-            return handlerInput.responseBuilder
-                .speak("Login code is not provided")
-                .getResponse();
-        }
-        const speakOutput = "Slot value is " + loginCode;
         return handlerInput.responseBuilder
-            .speak(speakOutput)
+            .speak("Deployed successfully!")
             .getResponse();
     }
 };
