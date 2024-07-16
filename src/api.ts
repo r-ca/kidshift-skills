@@ -24,4 +24,22 @@ class ApiClient {
         }
         return headers;
     }
+
+    async get<T>(url: string, params?: any, includeToken = true): Promise<T> {
+        const headers = this.getHeaders(includeToken);
+        const config: AxiosRequestConfig = {
+            headers,
+            params
+        };
+        const response = await this.client.get<T>(url, config);
+        return response.data;
+    }
+    
+    async post<T>(url: string, data: any, includeToken = true): Promise<T> {
+        const headers = this.getHeaders(includeToken);
+        const response = await this.client.post<T>(url, data, { headers });
+        return response.data;
+    }
 }
+
+export default new ApiClient();
