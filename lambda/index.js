@@ -45,13 +45,9 @@ const HelloWorldIntentHandler = {
     },
     async handle(handlerInput) {
         const attributesManager = handlerInput.attributesManager;
-        const attributes = await attributesManager.getPersistentAttributes();
-        if (!attributes.counter) {
-            attributes.counter = 0;
-        }
-        else {
-            attributes.counter += 1;
-        }
+        let attributes = { "counter": 10 };
+        attributesManager.setPersistentAttributes(attributes);
+        await attributesManager.savePersistentAttributes();
         const speakOutput = "HelloWorldぷれーすほーるだー";
         return handlerInput.responseBuilder
             .speak(speakOutput)
