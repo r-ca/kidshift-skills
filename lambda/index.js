@@ -60,6 +60,17 @@ const HelloWorldIntentHandler = {
             .getResponse();
     }
 };
+const KidShiftAuthIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'KidShiftAuthIntentHandler';
+    },
+    handle(handlerInput) {
+        const speakOutput = 'AuthHandler placeholder message';
+        return handlerInput.responseBuilder
+            .speak(speakOutput)
+            .getResponse();
+    }
+};
 const HelpIntentHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
@@ -134,7 +145,7 @@ const ErrorHandler = {
     }
 };
 exports.handler = Alexa.SkillBuilders.custom()
-    .addRequestHandlers(LaunchRequestHandler, HelloWorldIntentHandler, HelpIntentHandler, CancelAndStopIntentHandler, FallbackIntentHandler, SessionEndedRequestHandler, IntentReflectorHandler)
+    .addRequestHandlers(LaunchRequestHandler, HelloWorldIntentHandler, HelpIntentHandler, CancelAndStopIntentHandler, FallbackIntentHandler, SessionEndedRequestHandler, IntentReflectorHandler, KidShiftAuthIntentHandler)
     .addErrorHandlers(ErrorHandler)
     .withPersistenceAdapter(new DynamoDBPersistantAttributesAdapter.DynamoDbPersistenceAdapter({
     tableName: process.env.DYNAMODB_PERSISTENCE_TABLE_NAME || 'ask-sdk-table',
