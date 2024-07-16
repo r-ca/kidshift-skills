@@ -18,3 +18,10 @@ interface ChildListResponse {
 interface ChildResponse extends ChildBaseItem {
     // 追加プロパティ
 }
+
+export {
+    ChildBaseItem,
+    ChildDetailsResponse,
+    ChildListResponse,
+    ChildResponse
+}
