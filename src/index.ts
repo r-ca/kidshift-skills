@@ -35,7 +35,7 @@ const HelloWorldIntentHandler = {
         attributesManager.setPersistentAttributes(attributes);
         await attributesManager.savePersistentAttributes();
 
-        const speakOutput = "HelloWorld! You've invoked me " + attributes.counter + " times"
+        const speakOutput = "HelloWorld! You've invoked me " + attributes.counter + " times and dialog value is " + Alexa.getSlotValue(handlerInput.requestEnvelope, 'exampleSlot');
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
