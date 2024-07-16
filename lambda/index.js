@@ -53,20 +53,7 @@ const HelloWorldIntentHandler = {
 const KidShiftAuthIntentHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
-            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'KidShiftLoginIntent';
-    },
-    async handle(handlerInput) {
-        const speakOutput = 'Hello World!2';
-        return handlerInput.responseBuilder
-            .speak(speakOutput)
-            .getResponse();
-    }
-};
-const KidShiftAuthIntentResutHandler = {
-    canHandle(handlerInput) {
-        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
-            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'KidShiftAuthIntent'
-            && Alexa.getDialogState(handlerInput.requestEnvelope) === 'COMPLETED';
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'KidShiftAuthIntent';
     },
     async handle(handlerInput) {
         const speakOutput = 'Hello World!2';
@@ -149,7 +136,7 @@ const ErrorHandler = {
     }
 };
 exports.handler = Alexa.SkillBuilders.custom()
-    .addRequestHandlers(LaunchRequestHandler, HelloWorldIntentHandler, HelpIntentHandler, CancelAndStopIntentHandler, FallbackIntentHandler, SessionEndedRequestHandler, IntentReflectorHandler, KidShiftAuthIntentHandler, KidShiftAuthIntentResutHandler)
+    .addRequestHandlers(LaunchRequestHandler, HelloWorldIntentHandler, KidShiftAuthIntentHandler, HelpIntentHandler, CancelAndStopIntentHandler, FallbackIntentHandler, SessionEndedRequestHandler, IntentReflectorHandler)
     .addErrorHandlers(ErrorHandler)
     .withPersistenceAdapter(new DynamoDBPersistantAttributesAdapter.DynamoDbPersistenceAdapter({
     tableName: process.env.DYNAMODB_PERSISTENCE_TABLE_NAME || 'ask-sdk-table',
