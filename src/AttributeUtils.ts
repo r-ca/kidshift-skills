@@ -1,6 +1,6 @@
 import * as Alexa from 'ask-sdk-core';
 
-class AttributeUtil {
+class AttributeUtils {
     private handlerInput: Alexa.HandlerInput;
 
     constructor(handlerInput: Alexa.HandlerInput) {
@@ -28,3 +28,5 @@ class AttributeUtil {
         });
     }
 }
+
+export default AttributeUtils;
