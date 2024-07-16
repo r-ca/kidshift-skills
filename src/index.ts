@@ -32,12 +32,12 @@ const HelloWorldIntentHandler = {
 
 const KidShiftAuthIntentHandler = {
     canHandle(handlerInput: Alexa.HandlerInput) {
-        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest' 
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'KidShiftAuthIntent';
     },
     handle(handlerInput: Alexa.HandlerInput) {
         return handlerInput.responseBuilder
-            .speak('引数なし呼び出し')
+            .speak('DEBUG: your auth code is ' + Alexa.getSlotValue(handlerInput.requestEnvelope, 'loginCode'))
             .getResponse();
     }
 };
