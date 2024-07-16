@@ -57,7 +57,7 @@ const KidShiftAuthIntentHandler = {
     },
     handle(handlerInput) {
         return handlerInput.responseBuilder
-            .speak('引数なし呼び出し')
+            .speak('DEBUG: your auth code is ' + Alexa.getSlotValue(handlerInput.requestEnvelope, 'loginCode'))
             .getResponse();
     }
 };
