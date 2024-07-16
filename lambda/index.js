@@ -55,18 +55,15 @@ const KidShiftAuthIntentHandler = {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'KidShiftAuthIntent';
     },
-    handle(handlerInput) {
-        // if (Alexa.getSlot(handlerInput.requestEnvelope, 'loginCode').value === undefined) {
-        //     return handlerInput.responseBuilder
-        //         .speak('Please provide a valid login code')
-        //         .reprompt('Please provide a valid login code')
-        //         .getResponse();
-        // }
-        // return handlerInput.responseBuilder
-        //     .speak('your auth code is ' + Alexa.getSlotValue(handlerInput.requestEnvelope, 'loginCode'))
-        //     .getResponse();
+    async handle(handlerInput) {
+        if (Alexa.getSlot(handlerInput.requestEnvelope, 'loginCode').value === undefined) {
+            return handlerInput.responseBuilder
+                .speak('Please provide a valid login code')
+                .reprompt('Please provide a valid login code')
+                .getResponse();
+        }
         return handlerInput.responseBuilder
-            .speak('hoge')
+            .speak('your auth code is ' + Alexa.getSlotValue(handlerInput.requestEnvelope, 'loginCode'))
             .getResponse();
     }
 };
