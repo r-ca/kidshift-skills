@@ -43,19 +43,18 @@ const HelloWorldIntentHandler = {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'HelloWorldIntent';
     },
-    handle(handlerInput) {
-        const speakOutput = 'Hello World!';
-        return handlerInput.responseBuilder
-            .speak(speakOutput)
-            .getResponse();
-    }
-};
-const KidShiftAuthIntentHandler = {
-    canHandle(handlerInput) {
-        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'KidShiftAuthIntentHandler';
-    },
-    handle(handlerInput) {
-        const speakOutput = 'AuthHandler placeholder message';
+    async handle(handlerInput) {
+        const attributesManager = handlerInput.attributesManager;
+        const attributes = await attributesManager.getPersistentAttributes();
+        if (!attributes.counter) {
+            attributes.counter = 0;
+        }
+        else {
+            attributes.counter += 1;
+        }
+        attributesManager.setPersistentAttributes(attributes);
+        await attributesManager.savePersistentAttributes();
+        const speakOutput = `Hello World! You've visited this skill ${attributes.counter} times.`;
         return handlerInput.responseBuilder
             .speak(speakOutput)
             .getResponse();
