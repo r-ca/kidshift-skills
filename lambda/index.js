@@ -63,12 +63,15 @@ const HelloWorldIntentHandler = {
 const KidShiftAuthIntentHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
-            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'KidShiftAuthIntent'
-            && Alexa.getDialogState(handlerInput.requestEnvelope) === 'COMPLETED';
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'KidShiftAuthIntent';
     },
     handle(handlerInput) {
+        if (!Alexa.getSlotValue(handlerInput.requestEnvelope, 'loginCode')) {
+            return handlerInput.responseBuilder
+                .speak("Login code is not provided")
+                .getResponse();
+        }
         const loginCode = Alexa.getSlotValue(handlerInput.requestEnvelope, 'loginCode');
-        console.log("Login code is " + loginCode);
         if (!loginCode) {
             return handlerInput.responseBuilder
                 .speak("Login code is not provided")
