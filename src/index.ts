@@ -2,6 +2,7 @@ import * as Alexa from 'ask-sdk-core';
 import * as AWS from 'aws-sdk';
 import * as DynamoDBPersistantAttributesAdapter from 'ask-sdk-dynamodb-persistence-adapter';
 import { DialogState } from 'ask-sdk-model';
+import MetaService from './service/MetaService';
 
 const LaunchRequestHandler = {
     canHandle(handlerInput: Alexa.HandlerInput) {
@@ -45,6 +46,26 @@ const KidShiftAuthIntentHandler = {
             .getResponse();
     }
 };
+
+
+const KidShiftMetaIntentHandler = {
+    canHandle(handlerInput: Alexa.HandlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'KidShiftmetaIntent';
+    },
+    async handle(handlerInput: Alexa.HandlerInput) {
+        return MetaService.getMeta().then((resp) => {
+            return handlerInput.responseBuilder
+                .speak(resp)
+                .getResponse();
+        }).catch((err) => {
+            return handlerInput.responseBuilder
+                .speak('Error occured')
+                .getResponse();
+        });
+    }
+};
+
 
 const HelpIntentHandler = {
     canHandle(handlerInput: Alexa.HandlerInput) {
