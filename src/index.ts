@@ -44,22 +44,11 @@ const HelloWorldIntentHandler = {
 
 const KidShiftAuthIntentHandler = {
     canHandle(handlerInput: Alexa.HandlerInput) {
-        return (Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest') && (Alexa.getIntentName(handlerInput.requestEnvelope) === 'KidShiftAuthIntent');
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest' 
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'KidShiftAuthIntent'
+            && Alexa.getDialogState(handlerInput.requestEnvelope) === 'COMPLETED';
     },
     handle(handlerInput: Alexa.HandlerInput) {
-
-        // dialogStateを取得
-        const dialogState = Alexa.getDialogState(handlerInput.requestEnvelope);
-
-        // dialogStateがCOMPLETEDでない場合は、処理を続行
-
-        console.log("Dialog state is " + dialogState);
-
-        if (dialogState !== 'COMPLETED') {
-            return handlerInput.responseBuilder
-                .addDelegateDirective()
-                .getResponse();
-        }
 
         const loginCode = Alexa.getSlotValue(handlerInput.requestEnvelope, 'loginCode');
 
