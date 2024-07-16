@@ -5,3 +5,7 @@ interface ParentResponse {
     email: string,
     name: string,
 }
+
+export {
+    ParentResponse
+}
