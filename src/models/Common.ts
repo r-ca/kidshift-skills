@@ -7,3 +7,8 @@ interface TokenBaseItem {
 interface TokenResponse extends TokenBaseItem {
     // 追加プロパティ
 }
+
+export {
+    TokenBaseItem,
+    TokenResponse
+}
