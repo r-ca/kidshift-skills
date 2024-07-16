@@ -67,12 +67,14 @@ const KidShiftAuthIntentHandler = {
     },
     handle(handlerInput) {
         const dialogState = Alexa.getDialogState(handlerInput.requestEnvelope);
+        console.log("Dialog state is " + dialogState);
         if (dialogState !== 'COMPLETED') {
             return handlerInput.responseBuilder
                 .addDelegateDirective()
                 .getResponse();
         }
-        const loginCode = Alexa.getSlotValue(handlerInput.requestEnvelope, "loginCode");
+        const loginCode = Alexa.getSlotValue(handlerInput.requestEnvelope, 'loginCode');
+        console.log("Login code is " + loginCode);
         if (!loginCode) {
             return handlerInput.responseBuilder
                 .speak("Login code is not provided")
