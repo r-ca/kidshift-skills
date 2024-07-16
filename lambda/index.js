@@ -77,7 +77,6 @@ const KidShiftAuthIntentHandler = {
         const speakOutput = "Slot value is " + loginCode;
         return handlerInput.responseBuilder
             .speak(speakOutput)
-            .withShouldEndSession(true)
             .getResponse();
     }
 };
