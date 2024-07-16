@@ -3,6 +3,7 @@ import * as AWS from 'aws-sdk';
 import * as DynamoDBPersistantAttributesAdapter from 'ask-sdk-dynamodb-persistence-adapter';
 import { DialogState } from 'ask-sdk-model';
 import MetaService from './service/MetaService';
+import AuthService from './service/AuthService';
 
 const LaunchRequestHandler = {
     canHandle(handlerInput: Alexa.HandlerInput) {
@@ -39,11 +40,18 @@ const KidShiftAuthIntentHandler = {
     async handle(handlerInput: Alexa.HandlerInput) {
         const loginCode = Alexa.getSlotValue(handlerInput.requestEnvelope, 'loginCode');
 
-        const message = 'Slot value is ' + loginCode;
-
-        return handlerInput.responseBuilder
-            .speak(message)
+        const tokenResponse = await AuthService.login(loginCode);
+        if (tokenResponse) {
+            handlerInput.attributesManager.setPersistentAttributes(tokenResponse);
+            await handlerInput.attributesManager.savePersistentAttributes();
+            return handlerInput.responseBuilder
+            .speak('Login successful')
             .getResponse();
+        } else {
+            return handlerInput.responseBuilder
+            .speak('Login failed')
+            .getResponse();
+        }
     }
 };
 
