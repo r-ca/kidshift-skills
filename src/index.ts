@@ -64,7 +64,6 @@ const KidShiftAuthIntentHandler = {
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
-            .withShouldEndSession(true)
             .getResponse();
     }
 };
