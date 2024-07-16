@@ -62,11 +62,15 @@ const HelloWorldIntentHandler = {
 };
 const KidShiftAuthIntentHandler = {
     canHandle(handlerInput) {
-        return Alexa.getIntentName(handlerInput.requestEnvelope) === 'KidShiftAuthIntent';
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'KidShiftAuthIntent';
     },
     handle(handlerInput) {
+        const loginCode = Alexa.getSlot(handlerInput.requestEnvelope, 'loginCode');
+        const speakOutput = `You entered the code ${loginCode.value}.`;
         return handlerInput.responseBuilder
-            .speak("Deployed successfully!")
+            .speak(speakOutput)
+            .withShouldEndSession(true)
             .getResponse();
     }
 };
