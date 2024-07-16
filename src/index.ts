@@ -23,13 +23,20 @@ const HelloWorldIntentHandler = {
     },
     async handle(handlerInput: Alexa.HandlerInput) {
 
+        // const attributesManager = handlerInput.attributesManager;
+        // const attributes = await attributesManager.getPersistentAttributes();
+        // if (!attributes.counter) {
+        //     attributes.counter = 0;
+        // } else {
+        //     attributes.counter += 1;
+        // }
+
+
         const attributesManager = handlerInput.attributesManager;
-        const attributes = await attributesManager.getPersistentAttributes();
-        if (!attributes.counter) {
-            attributes.counter = 0;
-        } else {
-            attributes.counter += 1;
-        }
+        let attributes = { "counter": 10 };
+
+        attributesManager.setPersistentAttributes(attributes);
+        await attributesManager.savePersistentAttributes();
 
         // attributesManager.setPersistentAttributes(attributes);
         //
@@ -157,7 +164,7 @@ exports.handler = Alexa.SkillBuilders.custom()
     .withPersistenceAdapter(new DynamoDBPersistantAttributesAdapter.DynamoDbPersistenceAdapter({
         tableName: process.env.DYNAMODB_PERSISTENCE_TABLE_NAME || 'ask-sdk-table',
         createTable: false,
-        dynamoDBClient: new AWS.DynamoDB({apiVersion: 'latest', region: process.env.DYNAMODB_PERSISTENCE_REGION})
+        dynamoDBClient: new AWS.DynamoDB({ apiVersion: 'latest', region: process.env.DYNAMODB_PERSISTENCE_REGION })
     }))
     .withCustomUserAgent('sample/hello-world/v1.2')
     .lambda();
