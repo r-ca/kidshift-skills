@@ -62,9 +62,16 @@ const HelloWorldIntentHandler = {
 };
 const KidShiftAuthIntentHandler = {
     canHandle(handlerInput) {
-        return (Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest') && (Alexa.getRequestType(handlerInput.requestEnvelope) === 'KidShiftAuthIntent');
+        return (Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest') && (Alexa.getIntentName(handlerInput.requestEnvelope) === 'KidShiftAuthIntent');
     },
     handle(handlerInput) {
+        const dialogState = Alexa.getDialogState(handlerInput.requestEnvelope);
+        console.log("Dialog state is " + dialogState);
+        if (dialogState !== 'COMPLETED') {
+            return handlerInput.responseBuilder
+                .addDelegateDirective()
+                .getResponse();
+        }
         const loginCode = Alexa.getSlotValue(handlerInput.requestEnvelope, 'loginCode');
         console.log("Login code is " + loginCode);
         if (!loginCode) {
