@@ -1,6 +1,7 @@
 import * as Alexa from 'ask-sdk-core';
 import * as AWS from 'aws-sdk';
 import * as DynamoDBPersistantAttributesAdapter from 'ask-sdk-dynamodb-persistence-adapter';
+import { DialogState } from 'ask-sdk-model';
 
 const LaunchRequestHandler = {
     canHandle(handlerInput: Alexa.HandlerInput) {
@@ -48,12 +49,16 @@ const KidShiftAuthIntentHandler = {
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'KidShiftAuthIntent';
     },
     handle(handlerInput: Alexa.HandlerInput) {
-        const loginCode = Alexa.getSlot(handlerInput.requestEnvelope, 'loginCode');
-        const speakOutput = `You entered the code ${loginCode.value}.`;
-        return handlerInput.responseBuilder
-            .speak(speakOutput)
-            .withShouldEndSession(true)
-            .getResponse();
+        const dialogState: DialogState = Alexa.getDialogState(handlerInput.requestEnvelope);
+        if (dialogState !== 'COMPLETED') {
+            return handlerInput.responseBuilder
+                .speak('Not provided')
+                .getResponse();
+        } else {
+            return handlerInput.responseBuilder
+                .speak('Provided')
+                .getResponse();
+        }
     }
 };
 
