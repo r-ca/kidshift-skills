@@ -52,9 +52,7 @@ const HelloWorldIntentHandler = {
         else {
             attributes.counter += 1;
         }
-        attributesManager.setPersistentAttributes(attributes);
-        await attributesManager.savePersistentAttributes();
-        const speakOutput = `Hello World! You've visited this skill ${attributes.counter} times.`;
+        const speakOutput = "HelloWorldぷれーすほーるだー";
         return handlerInput.responseBuilder
             .speak(speakOutput)
             .getResponse();
