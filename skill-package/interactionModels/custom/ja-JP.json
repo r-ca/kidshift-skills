@@ -1,5 +1,26 @@
 {
   "interactionModel": {
+    "dialog": {
+      "intents": [
+        {
+          "slots": [
+            {
+              "name": "loginCode",
+              "elicitationRequired": true,
+              "type": "AMAZON.SearchQuery",
+              "confirmationRequired": false,
+              "prompts": {
+                "elicitation": "Elicit.Slot.334399526252.1585714540564"
+              }
+            }
+          ],
+          "name": "KidShiftAuthIntent",
+          "confirmationRequired": false,
+          "prompts": {}
+        }
+      ],
+      "delegationStrategy": "ALWAYS"
+    },
     "languageModel": {
       "intents": [
         {
@@ -32,7 +53,16 @@
           "samples": []
         },
         {
-          "slots": [],
+          "slots": [
+            {
+              "name": "loginCode",
+              "type": "AMAZON.SearchQuery",
+              "samples": [
+                "{loginCode} です",
+                "{loginCode}"
+              ]
+            }
+          ],
           "name": "KidShiftAuthIntent",
           "samples": [
             "login",
@@ -45,6 +75,17 @@
       ],
       "types": [],
       "invocationName": "きっずしふと"
-    }
+    },
+    "prompts": [
+      {
+        "variations": [
+          {
+            "type": "PlainText",
+            "value": "ログインコードを教えてください"
+          }
+        ],
+        "id": "Elicit.Slot.334399526252.1585714540564"
+      }
+    ]
   }
 }
