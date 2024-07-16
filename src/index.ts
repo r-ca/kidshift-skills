@@ -51,7 +51,7 @@ const KidShiftAuthIntentHandler = {
 const KidShiftMetaIntentHandler = {
     canHandle(handlerInput: Alexa.HandlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
-            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'KidShiftmetaIntent';
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'KidShiftMetaIntent';
     },
     async handle(handlerInput: Alexa.HandlerInput) {
         return MetaService.getMeta().then((resp) => {
