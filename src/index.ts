@@ -36,14 +36,9 @@ const KidShiftAuthIntentHandler = {
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'KidShiftAuthIntent';
     },
     async handle(handlerInput: Alexa.HandlerInput) {
-        if (Alexa.getSlot(handlerInput.requestEnvelope, 'loginCode').value === undefined) {
-            return handlerInput.responseBuilder
-                .speak('Please provide a valid login code')
-                .reprompt('Please provide a valid login code')
-                .getResponse();
-        }
+        const speakOutput = 'Hello World!2';
         return handlerInput.responseBuilder
-            .speak('your auth code is ' + Alexa.getSlotValue(handlerInput.requestEnvelope, 'loginCode'))
+            .speak(speakOutput)
             .getResponse();
     }
 };
