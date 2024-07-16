@@ -20,7 +20,8 @@ const LaunchRequestHandler = {
 const HelloWorldIntentHandler = {
     canHandle(handlerInput: Alexa.HandlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
-            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'HelloWorldIntent';
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'HelloWorldIntent'
+            && Alexa.getDialogState(handlerInput.requestEnvelope) === 'COMPLETED';
     },
     async handle(handlerInput: Alexa.HandlerInput) {
 
