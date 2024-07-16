@@ -24,6 +24,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Alexa = __importStar(require("ask-sdk-core"));
+const AWS = __importStar(require("aws-sdk"));
+const DynamoDBPersistantAttributesAdapter = __importStar(require("ask-sdk-dynamodb-persistence-adapter"));
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
@@ -43,6 +45,17 @@ const HelloWorldIntentHandler = {
     },
     handle(handlerInput) {
         const speakOutput = 'Hello World!';
+        return handlerInput.responseBuilder
+            .speak(speakOutput)
+            .getResponse();
+    }
+};
+const KidShiftAuthIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'KidShiftAuthIntentHandler';
+    },
+    handle(handlerInput) {
+        const speakOutput = 'AuthHandler placeholder message';
         return handlerInput.responseBuilder
             .speak(speakOutput)
             .getResponse();
@@ -124,6 +137,11 @@ const ErrorHandler = {
 exports.handler = Alexa.SkillBuilders.custom()
     .addRequestHandlers(LaunchRequestHandler, HelloWorldIntentHandler, HelpIntentHandler, CancelAndStopIntentHandler, FallbackIntentHandler, SessionEndedRequestHandler, IntentReflectorHandler)
     .addErrorHandlers(ErrorHandler)
+    .withPersistenceAdapter(new DynamoDBPersistantAttributesAdapter.DynamoDbPersistenceAdapter({
+    tableName: process.env.DYNAMODB_PERSISTENCE_TABLE_NAME || 'ask-sdk-table',
+    createTable: false,
+    dynamoDBClient: new AWS.DynamoDB({ apiVersion: 'latest', region: process.env.DYNAMODB_PERSISTENCE_REGION })
+}))
     .withCustomUserAgent('sample/hello-world/v1.2')
     .lambda();
 //# sourceMappingURL=index.js.map
