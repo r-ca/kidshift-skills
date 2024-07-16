@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "pjson": "ts-node ./src/tools/gen-package-json.ts > ./lambda/package.json",
     "clean": "rm -rf ./lambda/*"
   },
   "author": "Amazon Alexa",

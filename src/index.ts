@@ -43,6 +43,21 @@ const KidShiftAuthIntentHandler = {
     }
 };
 
+
+const KidShiftAuthIntentResutHandler = {
+    canHandle(handlerInput: Alexa.HandlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'KidShiftAuthIntent'
+            && Alexa.getDialogState(handlerInput.requestEnvelope) === 'COMPLETED';
+    },
+    async handle(handlerInput: Alexa.HandlerInput) {
+        const speakOutput = 'Hello World!2';
+        return handlerInput.responseBuilder
+            .speak(speakOutput)
+            .getResponse();
+    }
+};
+
 const HelpIntentHandler = {
     canHandle(handlerInput: Alexa.HandlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
@@ -136,7 +151,8 @@ exports.handler = Alexa.SkillBuilders.custom()
         FallbackIntentHandler,
         SessionEndedRequestHandler,
         IntentReflectorHandler,
-        KidShiftAuthIntentHandler)
+        KidShiftAuthIntentHandler,
+        KidShiftAuthIntentResutHandler)
     .addErrorHandlers(
         ErrorHandler)
     .withPersistenceAdapter(new DynamoDBPersistantAttributesAdapter.DynamoDbPersistenceAdapter({
