@@ -7,6 +7,8 @@ import AuthService from './service/AuthService';
 import TaskService from './service/TaskService';
 import { TaskListResponse } from './models/Task';
 import AttributeUtils from './AttributeUtils';
+import { ChildListResponse } from './models/Child';
+import ChildService from './service/ChildService';
 
 const LaunchRequestHandler = {
     canHandle(handlerInput: Alexa.HandlerInput) {
@@ -81,9 +83,41 @@ const KidShiftTaskCompleteIntentHandler = {
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'KidShiftTaskCompleteIntent';
     },
     async handle(handlerInput: Alexa.HandlerInput) {
-        return handlerInput.responseBuilder // Placeholder
-            .speak('WIP')
+
+        const taskList: TaskListResponse = await TaskService.getTasks()
+
+        const childList: ChildListResponse = await ChildService.getChildList();
+
+        const taskName = Alexa.getSlotValue(handlerInput.requestEnvelope, 'taskName');
+
+        const childName = Alexa.getSlotValue(handlerInput.requestEnvelope, 'childName');
+
+        const task = taskList.list.find((task) => task.name === taskName);
+        if (!task) {
+            return handlerInput.responseBuilder
+                .speak('Task not found')
+                .getResponse();
+        }
+
+        const child = childList.list.find((child) => child.name === childName);
+        if (!child) {
+            return handlerInput.responseBuilder
+            .speak('Child not found')
             .getResponse();
+        }
+
+        const attributeUtils = new AttributeUtils(handlerInput);
+        TaskService.setToken(await attributeUtils.getToken());
+
+        TaskService.completeTask(task.id, child.id).then(() => {
+            return handlerInput.responseBuilder
+                .speak('Task completed')
+                .getResponse();
+        }).catch(() => {
+            return handlerInput.responseBuilder
+                .speak('Task completion failed')
+                .getResponse();
+        });
     }
 };
 
