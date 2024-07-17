@@ -113,7 +113,7 @@ const KidShiftTaskCompleteIntentHandler = {
 
         return TaskService.completeTask(task.id, child.id).then(() => {
 
-            const dataSources = TaskCompletedDirective.createDataSources("TestHeadline", "TestHint");
+            const dataSources = TaskCompletedDirective.createDataSources(task.name, " + " + task.reward + " 円")
             const directivePayload: Directive = TaskCompletedDirective.createDirectivePayload(dataSources);
 
             return handlerInput.responseBuilder
