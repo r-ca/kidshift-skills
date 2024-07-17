@@ -84,6 +84,9 @@ const KidShiftTaskCompleteIntentHandler = {
     },
     async handle(handlerInput: Alexa.HandlerInput) {
 
+        const attributeUtils = new AttributeUtils(handlerInput);
+        TaskService.setToken(await attributeUtils.getToken());
+
         const taskList: TaskListResponse = await TaskService.getTasks()
 
         const childList: ChildListResponse = await ChildService.getChildList();
@@ -105,9 +108,6 @@ const KidShiftTaskCompleteIntentHandler = {
             .speak('Child not found')
             .getResponse();
         }
-
-        const attributeUtils = new AttributeUtils(handlerInput);
-        TaskService.setToken(await attributeUtils.getToken());
 
         return TaskService.completeTask(task.id, child.id).then(() => {
             return handlerInput.responseBuilder
