@@ -1,24 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Method = exports.Endpoints = exports.Configs = void 0;
-const Configs = Object.freeze({
-    API_BASE: 'https://kidshift-beta.nem.one',
+exports.MESSAGES = void 0;
+const MESSAGES = Object.freeze({
+    TASK_COMPLETED: 'タスクの完了を記録しました',
+    TASK_NOT_FOUND: 'タスクが見つかりません',
+    CHILD_NOT_FOUND: '子供が見つかりません',
+    ERROR_OCCURRED: 'エラーが発生しました',
+    NOT_LOGGED_IN: 'ログインしていません',
+    LOGGED_IN: 'ログインしました',
 });
-exports.Configs = Configs;
-var Method;
-(function (Method) {
-    Method["GET"] = "GET";
-    Method["POST"] = "POST";
-    Method["PUT"] = "PUT";
-    Method["DELETE"] = "DELETE";
-})(Method || (exports.Method = Method = {}));
-const Endpoints = Object.freeze({
-    LOGIN: {
-        method: Method.POST,
-        endpoint: '/parent/auth/login',
-        response: {},
-        request: {},
-    },
-});
-exports.Endpoints = Endpoints;
+exports.MESSAGES = MESSAGES;
 //# sourceMappingURL=const.js.map
