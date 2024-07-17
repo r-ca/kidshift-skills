@@ -1,10 +1,11 @@
+import { Directive } from "ask-sdk-model";
 import { DataSource } from "aws-sdk/clients/discovery";
 
 const DOCUMENT_ID = "task_completed";
 
 class TaskCompletedDirective {
 
-    public createDirectivePayload = (dataSources = {}, tokenId = "documentToken") => {
+    public createDirectivePayload = (dataSources = {}, tokenId = "documentToken"): Directive => {
         return {
             type: "Alexa.Presentation.APL.RenderDocument",
             token: tokenId,

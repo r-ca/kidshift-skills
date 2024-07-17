@@ -1,7 +1,7 @@
 import * as Alexa from 'ask-sdk-core';
 import * as AWS from 'aws-sdk';
 import * as DynamoDBPersistantAttributesAdapter from 'ask-sdk-dynamodb-persistence-adapter';
-import { DialogState } from 'ask-sdk-model';
+import { DialogState, Directive } from 'ask-sdk-model';
 import MetaService from './service/MetaService';
 import AuthService from './service/AuthService';
 import TaskService from './service/TaskService';
@@ -10,6 +10,7 @@ import AttributeUtils from './AttributeUtils';
 import { ChildListResponse } from './models/Child';
 import ChildService from './service/ChildService';
 import { MESSAGES } from './const';
+import TaskCompletedDirective from './apl/taskCompleted'
 
 const LaunchRequestHandler = {
     canHandle(handlerInput: Alexa.HandlerInput) {
@@ -111,8 +112,13 @@ const KidShiftTaskCompleteIntentHandler = {
         }
 
         return TaskService.completeTask(task.id, child.id).then(() => {
+
+            const dataSources = TaskCompletedDirective.createDataSources("TestHeadline", "TestHint");
+            const directivePayload: Directive = TaskCompletedDirective.createDirectivePayload(dataSources);
+
             return handlerInput.responseBuilder
                 .speak(MESSAGES.TASK_COMPLETED)
+                .addDirective(directivePayload)
                 .getResponse();
         }).catch(() => {
             return handlerInput.responseBuilder
