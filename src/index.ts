@@ -117,6 +117,10 @@ const KidShiftTaskCompleteIntentHandler = {
             return handlerInput.responseBuilder
                 .speak('Task completion failed')
                 .getResponse();
+        }).finally(() => {
+            return handlerInput.responseBuilder // ここに到達することはないはず
+                .speak('Task completion failed(UNKNOWN)')
+                .getResponse();
         });
     }
 };
