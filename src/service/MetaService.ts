@@ -1,6 +1,7 @@
 import api from '../api'
+import _ServiceBase from './_ServiceBase';
 
-class MetaService {
+class MetaService extends _ServiceBase {
     async getMeta() {
         return await api.get<any>('/meta');
     }
