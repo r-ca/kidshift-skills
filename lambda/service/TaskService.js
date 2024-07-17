@@ -9,6 +9,11 @@ class TaskService extends _ServiceBase_1.default {
     async getTasks() {
         return await api_1.default.get('/task');
     }
+    async completeTask(taskId, childId) {
+        const params = new URLSearchParams();
+        params.append('childId', childId);
+        return await api_1.default.post(`/task/${taskId}/complete`, {}, params);
+    }
 }
 exports.default = new TaskService();
 //# sourceMappingURL=TaskService.js.map

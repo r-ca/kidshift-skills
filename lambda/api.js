@@ -36,9 +36,9 @@ class ApiClient {
         const response = await this.client.get(url, config);
         return response.data;
     }
-    async post(url, data, includeToken = true) {
+    async post(url, data, params, includeToken = true) {
         const headers = this.getHeaders(includeToken);
-        const response = await this.client.post(url, data, { headers });
+        const response = await this.client.post(url, data, { headers, params });
         return response.data;
     }
 }

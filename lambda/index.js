@@ -33,6 +33,7 @@ const MetaService_1 = __importDefault(require("./service/MetaService"));
 const AuthService_1 = __importDefault(require("./service/AuthService"));
 const TaskService_1 = __importDefault(require("./service/TaskService"));
 const AttributeUtils_1 = __importDefault(require("./AttributeUtils"));
+const ChildService_1 = __importDefault(require("./service/ChildService"));
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
@@ -100,9 +101,33 @@ const KidShiftTaskCompleteIntentHandler = {
             && Alexa.getIntentName(handlerInput.requestEnvelope) === 'KidShiftTaskCompleteIntent';
     },
     async handle(handlerInput) {
-        return handlerInput.responseBuilder
-            .speak('WIP')
-            .getResponse();
+        const taskList = await TaskService_1.default.getTasks();
+        const childList = await ChildService_1.default.getChildList();
+        const taskName = Alexa.getSlotValue(handlerInput.requestEnvelope, 'taskName');
+        const childName = Alexa.getSlotValue(handlerInput.requestEnvelope, 'childName');
+        const task = taskList.list.find((task) => task.name === taskName);
+        if (!task) {
+            return handlerInput.responseBuilder
+                .speak('Task not found')
+                .getResponse();
+        }
+        const child = childList.list.find((child) => child.name === childName);
+        if (!child) {
+            return handlerInput.responseBuilder
+                .speak('Child not found')
+                .getResponse();
+        }
+        const attributeUtils = new AttributeUtils_1.default(handlerInput);
+        TaskService_1.default.setToken(await attributeUtils.getToken());
+        return TaskService_1.default.completeTask(task.id, child.id).then(() => {
+            return handlerInput.responseBuilder
+                .speak('Task completed')
+                .getResponse();
+        }).catch(() => {
+            return handlerInput.responseBuilder
+                .speak('Task completion failed')
+                .getResponse();
+        });
     }
 };
 const KidShiftMetaIntentHandler = {
