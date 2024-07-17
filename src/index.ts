@@ -45,8 +45,9 @@ const KidShiftAuthIntentHandler = {
 
         const tokenResponse = await AuthService.login(loginCode);
         if (tokenResponse) {
-            handlerInput.attributesManager.setPersistentAttributes(tokenResponse);
-            await handlerInput.attributesManager.savePersistentAttributes();
+            const attributeUtils = new AttributeUtils(handlerInput);
+            await attributeUtils.setToken(tokenResponse.accessToken);
+            await attributeUtils.saveAttributes();
             return handlerInput.responseBuilder
                 .speak('Login successful')
                 .getResponse();
