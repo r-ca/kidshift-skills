@@ -31,6 +31,8 @@ const AWS = __importStar(require("aws-sdk"));
 const DynamoDBPersistantAttributesAdapter = __importStar(require("ask-sdk-dynamodb-persistence-adapter"));
 const MetaService_1 = __importDefault(require("./service/MetaService"));
 const AuthService_1 = __importDefault(require("./service/AuthService"));
+const TaskService_1 = __importDefault(require("./service/TaskService"));
+const AttributeUtils_1 = __importDefault(require("./AttributeUtils"));
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
@@ -75,6 +77,31 @@ const KidShiftAuthIntentHandler = {
                 .speak('Login failed')
                 .getResponse();
         }
+    }
+};
+const KidShiftTaskListIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'KidShiftTaskListIntent';
+    },
+    async handle(handlerInput) {
+        const attributeUtils = new AttributeUtils_1.default(handlerInput);
+        TaskService_1.default.setToken(await attributeUtils.getToken());
+        const taskList = await TaskService_1.default.getTasks();
+        return handlerInput.responseBuilder
+            .speak(taskList.list.map((task) => task.name).join(', '))
+            .getResponse();
+    }
+};
+const KidShiftTaskCompleteIntentHandler = {
+    canHandle(handlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'KidShiftTaskCompleteIntent';
+    },
+    async handle(handlerInput) {
+        return handlerInput.responseBuilder
+            .speak('WIP')
+            .getResponse();
     }
 };
 const KidShiftMetaIntentHandler = {
@@ -168,7 +195,7 @@ const ErrorHandler = {
     }
 };
 exports.handler = Alexa.SkillBuilders.custom()
-    .addRequestHandlers(LaunchRequestHandler, HelloWorldIntentHandler, KidShiftAuthIntentHandler, KidShiftMetaIntentHandler, HelpIntentHandler, CancelAndStopIntentHandler, FallbackIntentHandler, SessionEndedRequestHandler, IntentReflectorHandler)
+    .addRequestHandlers(LaunchRequestHandler, HelloWorldIntentHandler, KidShiftAuthIntentHandler, KidShiftTaskListIntentHandler, KidShiftTaskCompleteIntentHandler, KidShiftMetaIntentHandler, HelpIntentHandler, CancelAndStopIntentHandler, FallbackIntentHandler, SessionEndedRequestHandler, IntentReflectorHandler)
     .addErrorHandlers(ErrorHandler)
     .withPersistenceAdapter(new DynamoDBPersistantAttributesAdapter.DynamoDbPersistenceAdapter({
     tableName: process.env.DYNAMODB_PERSISTENCE_TABLE_NAME || 'ask-sdk-table',

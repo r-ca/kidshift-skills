@@ -8,17 +8,21 @@ const BASE_URL = 'https://kidshift-beta.nem.one';
 const TIMEOUT = 5000;
 class ApiClient {
     constructor() {
+        this.token = null;
         this.client = axios_1.default.create({
             baseURL: BASE_URL,
             timeout: TIMEOUT,
         });
+    }
+    setToken(token) {
+        this.token = token;
     }
     getHeaders(includeToken) {
         const headers = {
             'Content-Type': 'application/json',
         };
         if (includeToken) {
-            const token = 'placeholder_token';
+            const token = this.token;
             headers['Authorization'] = `Bearer ${token}`;
         }
         return headers;

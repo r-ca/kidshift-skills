@@ -5,13 +5,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const api_1 = __importDefault(require("../api"));
 const _ServiceBase_1 = __importDefault(require("./_ServiceBase"));
-class MetaService extends _ServiceBase_1.default {
-    async getMeta() {
-        return await api_1.default.get('/meta');
-    }
-    async getPing() {
-        return await api_1.default.get('/meta/ping');
+class TaskService extends _ServiceBase_1.default {
+    async getTasks() {
+        return await api_1.default.get('/task');
     }
 }
-exports.default = new MetaService();
-//# sourceMappingURL=MetaService.js.map
+exports.default = new TaskService();
+//# sourceMappingURL=TaskService.js.map
