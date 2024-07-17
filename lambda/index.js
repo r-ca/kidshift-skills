@@ -66,8 +66,9 @@ const KidShiftAuthIntentHandler = {
         const loginCode = Alexa.getSlotValue(handlerInput.requestEnvelope, 'loginCode');
         const tokenResponse = await AuthService_1.default.login(loginCode);
         if (tokenResponse) {
-            handlerInput.attributesManager.setPersistentAttributes(tokenResponse);
-            await handlerInput.attributesManager.savePersistentAttributes();
+            const attributeUtils = new AttributeUtils_1.default(handlerInput);
+            await attributeUtils.setToken(tokenResponse.accessToken);
+            await attributeUtils.saveAttributes();
             return handlerInput.responseBuilder
                 .speak('Login successful')
                 .getResponse();
