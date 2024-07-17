@@ -9,6 +9,7 @@ import { TaskListResponse } from './models/Task';
 import AttributeUtils from './AttributeUtils';
 import { ChildListResponse } from './models/Child';
 import ChildService from './service/ChildService';
+import { MESSAGES } from './const';
 
 const LaunchRequestHandler = {
     canHandle(handlerInput: Alexa.HandlerInput) {
@@ -51,7 +52,7 @@ const KidShiftAuthIntentHandler = {
             await attributeUtils.setToken(tokenResponse.accessToken);
             await attributeUtils.saveAttributes();
             return handlerInput.responseBuilder
-                .speak('Login successful')
+                .speak(MESSAGES.LOGGED_IN)
                 .getResponse();
         } else {
             return handlerInput.responseBuilder
@@ -98,24 +99,24 @@ const KidShiftTaskCompleteIntentHandler = {
         const task = taskList.list.find((task) => task.name === taskName);
         if (!task) {
             return handlerInput.responseBuilder
-                .speak('Task not found')
+                .speak(MESSAGES.TASK_NOT_FOUND)
                 .getResponse();
         }
 
         const child = childList.list.find((child) => child.name === childName);
         if (!child) {
             return handlerInput.responseBuilder
-            .speak('Child not found')
+            .speak(MESSAGES.CHILD_NOT_FOUND)
             .getResponse();
         }
 
         return TaskService.completeTask(task.id, child.id).then(() => {
             return handlerInput.responseBuilder
-                .speak('Task completed')
+                .speak(MESSAGES.TASK_COMPLETED)
                 .getResponse();
         }).catch(() => {
             return handlerInput.responseBuilder
-                .speak('Task completion failed')
+                .speak(MESSAGES.ERROR_OCCURRED)
                 .getResponse();
         });
     }
