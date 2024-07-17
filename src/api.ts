@@ -6,6 +6,7 @@ const TIMEOUT = 5000;
 
 class ApiClient {
     private client: AxiosInstance;
+    private token: string | null = null;
 
     constructor() {
         this.client = axios.create({
@@ -14,12 +15,16 @@ class ApiClient {
         });
     }
 
+    public setToken(token: string): void {
+        this.token = token;
+    }
+
     private getHeaders(includeToken: boolean): Record<string, string> {
         const headers: Record<string, string> = {
             'Content-Type': 'application/json',
         };
         if (includeToken) {
-            const token = 'placeholder_token';
+            const token = this.token;
             headers['Authorization'] = `Bearer ${token}`;
         }
         return headers;
