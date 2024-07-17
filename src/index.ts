@@ -4,6 +4,9 @@ import * as DynamoDBPersistantAttributesAdapter from 'ask-sdk-dynamodb-persisten
 import { DialogState } from 'ask-sdk-model';
 import MetaService from './service/MetaService';
 import AuthService from './service/AuthService';
+import TaskService from './service/TaskService';
+import { TaskListResponse } from './models/Task';
+import AttributeUtils from './AttributeUtils';
 
 const LaunchRequestHandler = {
     canHandle(handlerInput: Alexa.HandlerInput) {
@@ -52,6 +55,34 @@ const KidShiftAuthIntentHandler = {
                 .speak('Login failed')
                 .getResponse();
         }
+    }
+};
+
+const KidShiftTaskListIntentHandler = {
+    canHandle(handlerInput: Alexa.HandlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'KidShiftTaskListIntent';
+    },
+    async handle(handlerInput: Alexa.HandlerInput) {
+        const attributeUtils = new AttributeUtils(handlerInput);
+        TaskService.setToken(await attributeUtils.getToken());
+
+        const taskList: TaskListResponse = await TaskService.getTasks();
+        return handlerInput.responseBuilder
+            .speak(taskList.list.map((task) => task.name).join(', '))
+            .getResponse();
+    }
+};
+
+const KidShiftTaskCompleteIntentHandler = {
+    canHandle(handlerInput: Alexa.HandlerInput) {
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
+            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'KidShiftTaskCompleteIntent';
+    },
+    async handle(handlerInput: Alexa.HandlerInput) {
+        return handlerInput.responseBuilder // Placeholder
+            .speak('WIP')
+            .getResponse();
     }
 };
 
@@ -164,6 +195,8 @@ exports.handler = Alexa.SkillBuilders.custom()
         LaunchRequestHandler,
         HelloWorldIntentHandler,
         KidShiftAuthIntentHandler,
+        KidShiftTaskListIntentHandler,
+        KidShiftTaskCompleteIntentHandler,
         KidShiftMetaIntentHandler,
         HelpIntentHandler,
         CancelAndStopIntentHandler,
