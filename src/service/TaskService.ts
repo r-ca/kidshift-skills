@@ -7,8 +7,10 @@ class TaskService extends _ServiceBase {
         return await api.get<TaskListResponse>('/task');
     }
 
-    async completeTask(taskId: string) {
-        return await api.post<void>(`/task/${taskId}/complete`, {})
+    async completeTask(taskId: string, childId: string) {
+        const params = new URLSearchParams();
+        params.append('childId', childId);
+        return await api.post<void>(`/task/${taskId}/complete`, {}, params);
     }
 }
 

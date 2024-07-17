@@ -40,9 +40,9 @@ class ApiClient {
         return response.data;
     }
     
-    async post<T>(url: string, data: any, includeToken = true): Promise<T> {
+    async post<T>(url: string, data: any, params?: URLSearchParams, includeToken = true): Promise<T> {
         const headers = this.getHeaders(includeToken);
-        const response = await this.client.post<T>(url, data, { headers });
+        const response = await this.client.post<T>(url, data, { headers, params });
         return response.data;
     }
 }
