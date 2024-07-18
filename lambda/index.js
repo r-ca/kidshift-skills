@@ -35,7 +35,7 @@ const TaskService_1 = __importDefault(require("./service/TaskService"));
 const AttributeUtils_1 = __importDefault(require("./AttributeUtils"));
 const ChildService_1 = __importDefault(require("./service/ChildService"));
 const const_1 = require("./const");
-const taskCompleted_1 = __importDefault(require("./apl/taskCompleted"));
+const TaskCompletedDerective_1 = __importDefault(require("./apl/TaskCompletedDerective"));
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
@@ -122,8 +122,8 @@ const KidShiftTaskCompleteIntentHandler = {
                 .getResponse();
         }
         return TaskService_1.default.completeTask(task.id, child.id).then(() => {
-            const dataSources = taskCompleted_1.default.createDataSources(task.name, " + " + task.reward + " 円");
-            const directivePayload = taskCompleted_1.default.createDirectivePayload(dataSources);
+            const dataSources = TaskCompletedDerective_1.default.createDataSources(task.name, " + " + task.reward + " 円");
+            const directivePayload = TaskCompletedDerective_1.default.createDirectivePayload(dataSources);
             return handlerInput.responseBuilder
                 .speak(const_1.MESSAGES.TASK_COMPLETED)
                 .addDirective(directivePayload)

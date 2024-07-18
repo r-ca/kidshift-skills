@@ -1,18 +1,25 @@
 {
-  "name": "@amzn/hello-world",
-  "version": "1.2.0",
+  "name": "kidshift-skills",
+  "version": "0.0.1",
   "description": "alexa utility for quickly building skills",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "clean": "rm -rf ./lambda/*",
+    "deploy": "npm run build && cp ./package.json ./lambda/ && git checkout master && git pull && git commit -am 'deploy' && git push && git checkout dev && git merge master && git push && git checkout master && ask deploy"
   },
-  "author": "Amazon Alexa",
+  "author": "KidShift Team",
   "license": "Apache License",
   "dependencies": {
+    "@types/node": "^20.14.10",
     "ask-sdk-core": "^2.7.0",
+    "ask-sdk-dynamodb-persistence-adapter": "^2.14.0",
     "ask-sdk-model": "^1.19.0",
     "aws-sdk": "^2.326.0",
-    "ask-sdk-dynamodb-persistence-adapter": "^2.14.0",
-    "axios": "^1.7.2"
+    "axios": "^1.7.2",
+    "pjson": "^1.0.9",
+    "ts-loader": "^9.5.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.3"
   }
 }
