@@ -47,4 +47,4 @@ class TaskCompletedDirective {
     }
 }
 exports.default = new TaskCompletedDirective();
-//# sourceMappingURL=taskCompleted.js.map
+//# sourceMappingURL=TaskCompletedDerective.js.map
