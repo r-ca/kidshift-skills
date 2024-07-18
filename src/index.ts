@@ -10,7 +10,7 @@ import AttributeUtils from './AttributeUtils';
 import { ChildListResponse } from './models/Child';
 import ChildService from './service/ChildService';
 import { MESSAGES } from './const';
-import TaskCompletedDirective from './apl/taskCompleted'
+import TaskCompletedDirective from './apl/TaskCompletedDerective'
 
 const LaunchRequestHandler = {
     canHandle(handlerInput: Alexa.HandlerInput) {
