@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "clean": "rm -rf ./lambda/*"
+    "clean": "rm -rf ./lambda/*",
+    "deploy": "npm run build && cp ./package.json ./lambda/ && git checkout master && git pull && git commit -am 'deploy' && git push && git checkout dev && git merge master && git push && git checkout master && ask deploy"
   },
   "author": "KidShift Team",
   "license": "Apache License",
