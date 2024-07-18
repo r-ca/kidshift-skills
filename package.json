@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "clean": "rm -rf ./lambda/*",
-    "deploy": "npm run build && cp ./package.json ./lambda/ && git checkout master && git pull && git commit -am 'deploy' && git push && git checkout dev && git pull && git merge master && git push && git checkout master && ask deploy"
+    "deploy": "npm run build && cp ./package.json ./lambda/ && git checkout master && git pull && git checkout dev && git pull && git checkout master && git commit -am 'deploy' && git push && git checkout dev && git pull && git checkout master && git merge dev && git push && ask deploy"
   },
   "author": "KidShift Team",
   "license": "Apache License",
