@@ -11,8 +11,6 @@
   "license": "Apache License",
   "dependencies": {
     "@types/node": "^20.14.10",
-    "@types/webpack": "^5.28.5",
-    "@types/webpack-node-externals": "^3.0.4",
     "ask-sdk-core": "^2.7.0",
     "ask-sdk-dynamodb-persistence-adapter": "^2.14.0",
     "ask-sdk-model": "^1.19.0",
@@ -21,9 +19,6 @@
     "pjson": "^1.0.9",
     "ts-loader": "^9.5.1",
     "ts-node": "^10.9.2",
-    "typescript": "^5.5.3",
-    "webpack": "^5.93.0",
-    "webpack-cli": "^5.1.4",
-    "webpack-node-externals": "^3.0.0"
+    "typescript": "^5.5.3"
   }
 }
