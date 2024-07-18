@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "clean": "rm -rf ./lambda/*",
-    "deploy": "npm run build && cp ./package.json ./lambda/ && git checkout master && git pull && git checkout dev && git pull && git checkout master && git commit -am 'deploy' && git push && git checkout dev && git pull && git checkout master && git merge dev && git push && ask deploy"
+    "deploy": "git checkout dev && git pull origin dev && git checkout master && git merge dev && npm run clean && npm run build && cp package.json lambda/ && git add lambda/ && git commit -m 'Deploy Alexa Skill' && git push origin master && ask deploy"
   },
   "author": "KidShift Team",
   "license": "Apache License",
